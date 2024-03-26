@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Carousel</title>
+    <style>
+        body {
+            background-image: url(static/images/images.jpeg);
+            background-size: cover;
+            background-position: center;
+            padding: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50vh;
+            margin: 0;
+            flex-direction: column
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            font-size: 1em;
+            margin-bottom: 5em;
+            white-space: nowrap;
+        }
+
+        .container {
+            width: 220px;
+            perspective: 1000px;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+        }
+
+        .content {
+            color: white;
+            font-family: Arial, sans-serif; /* Specify a font family */
+            font-size: 1.2em; /* Increase font size */
+            line-height: 1.6; /* Adjust line height for better readability */
+            text-align: center; /* Center-align the text */
+            padding: 0.5em; /* Add padding to the content */
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            border-radius: 10px; /* Add rounded corners to the content */
+        }
+
+        .carousel {
+            transform-style: preserve-3d;
+            animation: rotate 1s linear infinite;
+            position: relative;;
+            margin-top :5em;
+            margin-bottom:5em;
+        }
+
+        .carousel figure {
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .carousel figure img {
+            position: absolute;
+            width: 100%;
+            image-rendering: auto;
+            box-sizing: border-box;
+
+        }
+
+        .carousel:hover {
+            animation-play-state: paused;
+        }
+
+        .carousel figure img:nth-child(1) {
+            transform: rotateY(0deg) translateZ(300px);
+        }
+
+        .carousel figure img:nth-child(2) {
+            transform: rotateY(45deg) translateZ(300px);
+        }
+
+        .carousel figure img:nth-child(3) {
+            transform: rotateY(90deg) translateZ(300px);
+        }
+
+        .carousel figure img:nth-child(4) {
+            transform: rotateY(135deg) translateZ(300px);
+        }
+
+        .carousel figure img:nth-child(5) {
+            transform: rotateY(180deg) translateZ(300px);
+        }
+
+        .carousel figure img:nth-child(6) {
+            transform: rotateY(225deg) translateZ(300px);
+        }
+
+        .carousel figure img:nth-child(7) {
+            transform: rotateY(270deg) translateZ(300px);
+        }
+
+        .carousel figure img:nth-child(8) {
+            transform: rotateY(315deg) translateZ(300px);
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+
+           
+        }
+    </style>
+</head>
+<body> 
+    <audio controls autoplay loop>
+        <source src="path_to_your_audio_file.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+      
+
+    <div class="container">
+        <div class="title">
+            <h1>Choose Your Character</h1>
+        </div>
+
+        <div class="content">
+            <!-- Content that will be displayed when hovering over an image -->
+            <!-- Initially hidden -->
+        </div>
+
+        <div class="carousel">
+            <figure>
+                {% load static %}
+                <a href="{% url 'chatbot:chatbot' %}">
+                    <img src="{% static 'images/image1.jpeg' %}" style="transform: rotateY(0deg) translateZ(300px);">
+                </a>
+
+                <a href="{% url 'chatbot:chatbot' %}">
+                    <img src="{% static 'images/image1.jpeg' %}" style="transform: rotateY(90deg) translateZ(300px);">
+                </a>
+
+                <a href="{% url 'chatbot:chatbot' %}">
+                    <img src="{% static 'images/image1.jpeg' %}" style="transform: rotateY(180deg) translateZ(300px);">
+                </a>
+
+                <a href="{% url 'chatbot:chatbot' %}">
+                    <img src="{% static 'images/image1.jpeg' %}" style="transform: rotateY(270deg) translateZ(300px);">
+                </a>
+
+                <a href="{% url 'chatbot:chatbot' %}">
+                    <img src="{% static 'images/image1.jpeg' %}" style="transform: rotateY(360deg) translateZ(300px);">
+                </a>
+                
+                <!-- Add more duplicated images as needed -->
+            </figure>
+        </div>
+
+  
+    </div>
+
+    
+    
+
+
+    <script>
+        // Define default content for each image
+        const defaultContent = {
+            '{% static 'images/image1.jpeg' %}': 'Yoda',
+            // Add default content for other images as needed
+        };
+
+        // Get all images in the carousel
+        const carouselImages = document.querySelectorAll('.carousel img');
+        // Get the content div
+        const contentDiv = document.querySelector('.content');
+
+        // Add event listeners to each image
+        carouselImages.forEach(image => {
+            // Get the source of the image
+            const src = image.getAttribute('src');
+            // Set default content for the image
+            image.defaultContent = defaultContent[src] || '';
+
+            image.addEventListener('mouseover', () => {
+                // Display default content when hovering over an image
+                contentDiv.textContent = image.defaultContent;
+            });
+
+            image.addEventListener('mouseout', () => {
+                // Hide content when mouse leaves the image
+                contentDiv.textContent = '';
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>
