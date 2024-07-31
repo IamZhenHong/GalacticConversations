@@ -5,7 +5,7 @@ import os
 import openai
 # Create your views here.
 
-open_api_key = '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'
+open_api_key = 'sk-None-M2sRxMet8dsNiT6ku64TT3BlbkFJkDqN0PNHwFwjUj9jz9tf'
 openai.api_key = open_api_key
 client = OpenAI( api_key = open_api_key)
 def ask_open_api(msg):
